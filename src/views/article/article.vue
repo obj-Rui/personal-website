@@ -3,7 +3,7 @@
     文章{{ $route.params.id }}
 
     <!-- ... -->
-    <Starport :port="`my-id${$route.params.id}`" style="width: 300px">
+    <Starport :port="`my-id${$route.params.id}`" style="width: 300px" :duration="1">
       <n-image :height="300" lazy :src="`https://picsum.photos/id/${$route.params.id}/300/300`" />
     </Starport>
     <!-- 返回 -->

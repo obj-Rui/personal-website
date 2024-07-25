@@ -6,7 +6,7 @@
       <div class="board">
         <div class="card" v-for="i in 10" @click="goPage(i)">
           <div class="articleImg">
-            <Starport :port="`my-id${i}`">
+            <Starport :port="`my-id${i}`" easing="easeInOutSine">
               <n-image preview-disabled lazy :width="120" :height="120" object-fit="cover" :src="`https://picsum.photos/id/${i}/120/120`" alt="" srcset="" />
             </Starport>
           </div>
