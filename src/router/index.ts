@@ -11,6 +11,10 @@ const routes: RouteRecordRaw[] = [
   { path: '/article/:id', component: Article, meta: { transition: 'slide-left' } },
   //登录
   { path: '/login', name: 'login', component: () => import('@/views/basic/login/index.vue') },
+  // 注册
+  { path: '/register', name: 'register', component: () => import('@/views/basic/login/register.vue') },
+  // 未找到页面
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('@/views/basic/404/index.vue') },
 ];
 // app router
 export const router = createRouter({
