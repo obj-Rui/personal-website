@@ -9,6 +9,8 @@ const routes: RouteRecordRaw[] = [
   { path: '/', component: Home, meta: { transition: 'slide-right' }, alias: '/home' },
   { path: '/home', redirect: '/' },
   { path: '/article/:id', component: Article, meta: { transition: 'slide-left' } },
+  //登录
+  { path: '/login', name: 'login', component: () => import('@/views/basic/login/index.vue') },
 ];
 // app router
 export const router = createRouter({

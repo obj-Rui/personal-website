@@ -19,7 +19,6 @@
 import { computed } from 'vue';
 import { Starport } from 'vue-starport';
 import { router } from '/@/router';
-import { NImage } from 'naive-ui';
 const props = defineProps<{
   show: boolean;
 }>();
@@ -39,6 +38,7 @@ const goPage = (id: string | number) => {
 //     }
 //   });
 // });
+// 设置
 </script>
 
 <style scoped>

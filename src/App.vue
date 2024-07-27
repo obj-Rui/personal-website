@@ -5,7 +5,9 @@ import { StarportCarrier } from 'vue-starport';
 <template>
   <StarportCarrier>
     <!-- 这里 -->
-    <RouterView />
+    <n-message-provider>
+      <RouterView />
+    </n-message-provider>
   </StarportCarrier>
 </template>
 
