@@ -9,7 +9,7 @@
         <n-form-item label="密码" path="password">
           <n-input v-model:value="formValue.password" placeholder="输入密码" />
         </n-form-item>
-        <n-form-item label="邮箱" path="password">
+        <n-form-item label="邮箱" path="email">
           <n-auto-complete
             v-model:value="formValue.email"
             :input-props="{
@@ -18,10 +18,12 @@
             :options="emailOptions"
             placeholder="邮箱"
             clearable
+            type="email"
           />
         </n-form-item>
         <n-form-item label="验证码" path="code">
           <n-input v-model:value="formValue.code" placeholder="输入验证码" />
+          <n-button @click="handleCaptcha" :disabled="isStart" ml-3 type="primary">{{ btnText }}</n-button>
         </n-form-item>
         <div w-full text-right>
           <!-- 跳转登录页面 -->
@@ -35,33 +37,43 @@
       </n-form>
     </n-card>
   </n-flex>
+  <ImgVerify :show="isShowCheckModel" @success="checkSuccess" @close="onClose" />
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import type { FormInst } from 'naive-ui';
-import { userLogin } from './api';
-
+import { getCaptcha, userLogin } from './api';
+import { useCountdown } from './useCountdown';
+import ImgVerify from '/@/components/imgVerify/index.vue';
+import { useMessage } from 'naive-ui';
+const message = useMessage();
 const formRef = ref<FormInst | null>(null);
 const rules = {
-  user: {
-    username: {
-      required: true,
-      message: '请输入姓名',
-      trigger: 'blur',
-    },
-    password: {
-      required: true,
-      message: '请输入年龄',
-      trigger: ['input', 'blur'],
-    },
-  },
-  phone: {
+  username: {
     required: true,
-    message: '请输入电话号码',
-    trigger: ['input'],
+    message: '请输入账号',
+    trigger: 'blur',
+  },
+  password: {
+    required: true,
+    message: '请输入密码',
+    trigger: 'blur',
+  },
+  email: {
+    required: true,
+    message: '请输入邮箱',
+    trigger: 'blur',
+  },
+  code: {
+    required: true,
+    message: '请输入验证码',
+    trigger: 'blur',
   },
 };
+const isShowCheckModel = ref(false);
+const btnText = ref('获取验证码');
+const { currentCount, start, isStart } = useCountdown(6);
 
 const formValue = ref({
   username: '',
@@ -72,7 +84,7 @@ const formValue = ref({
 
 // 邮箱自动后缀
 const emailOptions = computed(() => {
-  return ['@gmail.com', '@163.com', '@qq.com'].map((suffix) => {
+  return ['@qq.com'].map((suffix) => {
     const prefix = formValue.value.email.split('@')[0];
     return {
       label: prefix + suffix,
@@ -91,5 +103,39 @@ function handleValidateClick(e: MouseEvent) {
       // message.error('Invalid');
     }
   });
+}
+
+// 按钮文字内容
+watchEffect(() => {
+  if (isStart.value) {
+    btnText.value = currentCount.value + 's后重新获取';
+  } else {
+    btnText.value = '获取验证码';
+  }
+});
+// 验证码
+function handleCaptcha() {
+  if (formValue.value.email === '') {
+    return message.warning('请输入邮箱');
+  }
+  isShowCheckModel.value = true;
+}
+// 获取验证码
+function handleSendCode() {
+  if (isStart.value) return;
+  start();
+  // 发送验证码
+  getCaptcha({ address: formValue.value.email });
+}
+// 验证成功
+function checkSuccess() {
+  console.log('验证成功');
+  isShowCheckModel.value = false;
+  handleSendCode();
+}
+// 关闭验证码
+function onClose() {
+  console.log('close');
+  isShowCheckModel.value = false;
 }
 </script>

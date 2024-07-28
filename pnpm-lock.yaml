@@ -35,6 +35,9 @@ importers:
       vue-starport:
         specifier: ^0.4.0
         version: 0.4.0(typescript@5.5.4)
+      vue3-puzzle-vcode:
+        specifier: ^1.1.7
+        version: 1.1.7
     devDependencies:
       '@types/lodash-es':
         specifier: ^4.17.12
@@ -1314,6 +1317,9 @@ packages:
     hasBin: true
     peerDependencies:
       typescript: '*'
+
+  vue3-puzzle-vcode@1.1.7:
+    resolution: {integrity: sha512-mW780dz7HKjrElnE60CeYSeHGidKBKHoMjTDYfqF21330rTkFOsfDK1FQKZ22MktgMtTEoS/imfpEDlM1cxY/g==}
 
   vue@3.4.34:
     resolution: {integrity: sha512-VZze05HWlA3ItreQ/ka7Sx7PoD0/3St8FEiSlSTVgb6l4hL+RjtP2/8g5WQBzZgyf8WG2f+g1bXzC7zggLhAJA==}
@@ -2666,6 +2672,8 @@ snapshots:
       '@vue/language-core': 1.8.27(typescript@5.5.4)
       semver: 7.6.3
       typescript: 5.5.4
+
+  vue3-puzzle-vcode@1.1.7: {}
 
   vue@3.4.34(typescript@5.5.4):
     dependencies:
