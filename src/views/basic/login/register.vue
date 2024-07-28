@@ -43,7 +43,7 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue';
 import type { FormInst } from 'naive-ui';
-import { getCaptcha, userLogin } from './api';
+import { getCaptcha, register, userLogin } from './api';
 import { useCountdown } from './useCountdown';
 import ImgVerify from '/@/components/imgVerify/index.vue';
 import { useMessage } from 'naive-ui';
@@ -96,7 +96,8 @@ function handleValidateClick(e: MouseEvent) {
   e.preventDefault();
   formRef.value?.validate((errors) => {
     if (!errors) {
-      userLogin(formValue.value);
+      const { username, password, email, code } = formValue.value;
+      register({ username, password, email, captcha: code });
       // message.success('Valid');
     } else {
       console.log(errors);
