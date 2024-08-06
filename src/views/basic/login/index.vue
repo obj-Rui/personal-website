@@ -1,6 +1,6 @@
 <template>
   <n-flex justify="center" items-center h-full>
-    <n-card w-3xl>
+    <n-card w-xl>
       <n-form ref="formRef" :label-width="80" :model="formValue" :rules="rules">
         <n-form-item label="账号" path="user.username">
           <n-input v-model:value="formValue.user.username" placeholder="输入姓名" />
@@ -8,7 +8,13 @@
         <n-form-item label="密码" path="user.password">
           <n-input v-model:value="formValue.user.password" placeholder="输入密码" />
         </n-form-item>
-        <n-form-item items-end>
+        <div w-full text-right>
+          <!-- 跳转注册页面 -->
+          <RouterLink to="/register">
+            <n-gradient-text type="info"> 去注册 </n-gradient-text>
+          </RouterLink>
+        </div>
+        <n-form-item>
           <n-button attr-type="button" @click="handleValidateClick"> 确认 </n-button>
         </n-form-item>
       </n-form>
@@ -19,9 +25,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import type { FormInst } from 'naive-ui';
-import { useMessage } from 'naive-ui';
 import { userLogin } from './api';
-const message = useMessage();
 
 const formRef = ref<FormInst | null>(null);
 const rules = {
@@ -56,10 +60,10 @@ function handleValidateClick(e: MouseEvent) {
   formRef.value?.validate((errors) => {
     if (!errors) {
       userLogin(formValue.value.user);
-      message.success('Valid');
+      // message.success('Valid');
     } else {
       console.log(errors);
-      message.error('Invalid');
+      // message.error('Invalid');
     }
   });
 }
