@@ -43,7 +43,7 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue';
 import type { FormInst } from 'naive-ui';
-import { getCaptcha, register, userLogin } from './api';
+import { getCaptcha, register } from './api';
 import { useCountdown } from './useCountdown';
 import ImgVerify from '/@/components/imgVerify/index.vue';
 import { useMessage } from 'naive-ui';
