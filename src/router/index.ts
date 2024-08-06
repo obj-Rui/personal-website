@@ -11,6 +11,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/article/:id', component: Article, meta: { transition: 'slide-left' } },
   //登录
   { path: '/login', name: 'login', component: () => import('@/views/basic/login/index.vue') },
+  { path: '/carousel', name: 'carousel', component: () => import('@/views/basic/carousel/carousel.vue') },
 ];
 // app router
 export const router = createRouter({
